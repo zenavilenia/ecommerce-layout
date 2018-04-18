@@ -25,7 +25,8 @@ module.exports = {
                             let token = jwt.sign(
                                 {
                                     id: user._id,
-                                    email: user.email
+                                    email: user.email,
+                                    role: user.role
                                 },
                                 process.env.SECRET)
                             //req.headers.token = token;
@@ -48,6 +49,7 @@ module.exports = {
     register: (req, res) => {
         let email = req.body.email
         let password = req.body.password
+        let role = req.body.role || 'user'
         bcrypt.hash(password, 10, function(err, hash) { 
             if(err) {
                 res.status(500).json({
@@ -56,7 +58,7 @@ module.exports = {
             } else {
                 password = hash;
                 let user = new mUser({
-                    email, password
+                    email, password, role
                 })
 
                 user.save((err, result) => {

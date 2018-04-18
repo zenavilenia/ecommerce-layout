@@ -37,35 +37,35 @@ module.exports = {
             })
     },
     addItem: (req, res) => {
-        let item = new Item({
-            name: req.body.name,
-            image: req.body.image || 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg',
-            description: req.body.description || 'No description',
-            price: req.body.price,
-            stock: req.body.stock,
-            weight: req.body.weight,
-            categoryId: req.body.categoryId
-        })
+      let item = new Item({
+        name: req.body.name,
+        image: req.imageURL || 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg',
+        description: req.body.description || 'No description',
+        price: req.body.price,
+        stock: req.body.stock,
+        weight: req.body.weight,
+        categoryId: req.body.categoryId
+      })
       
-        item.save()
-            .then(result => {
-                res.status(201).send({
-                    message: 'add item success',
-                    data: result
-                })
-            })
-            .catch(err => {
-                res.status(400).send({
-                    message: err.message
-                })
-            })
+      item.save()
+        .then(result => {
+          res.status(201).send({
+            message: 'add item success',
+            data: result
+          })
+        })
+        .catch(err => {
+          res.status(400).send({
+            message: err.message
+          })
+        })
     },
     update: (req, res) => {
         Item.update({
             _id: req.body.id
         }, {
             name: req.body.name,
-            image: req.body.image,
+            image: req.imageURL,
             description: req.body.description,
             price: req.body.price,
             stock: req.body.stock,
@@ -86,7 +86,7 @@ module.exports = {
     },
     remove: (req, res) => {
         Item.remove({
-            _id: req.body.id
+            _id: req.params.id
         })
             .then(result => {
                 res.status(200).send({

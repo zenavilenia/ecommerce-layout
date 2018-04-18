@@ -3,17 +3,17 @@ const Category = require('../models/category.model');
 module.exports = {
     findAll: (req, res) => {
         Category.find()
-            .then(result => {
-                res.status(200).send({
-                    message: 'query category success',
-                    data: result
-                })
+          .then(result => {
+            res.status(200).send({
+              message: 'query category success',
+              data: result
             })
-            .catch(err => {
-                res.status(400).send({
-                    message: err.message
-                })
+          })
+          .catch(err => {
+            res.status(400).send({
+              message: err.message
             })
+          })
     },
     addCategory: (req, res) => {
         let category = new Category({
