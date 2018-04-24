@@ -69,7 +69,7 @@
 										<input id="login_email" placeholder="Email" class="form-control form-control-sm" type="text" required="" v-model="emailLogin">
 									</div>
 									<div class="form-group">
-										<input id="login_pwd" placeholder="Password" class="form-control form-control-sm" type="text" required="" v-model="passwordLogin">
+										<input id="login_pwd" placeholder="Password" class="form-control form-control-sm" type="password" required="" v-model="passwordLogin">
 									</div>
 									<div class="form-group">
 										<button type="submit" class="btn btn-primary btn-block">Login</button>
@@ -104,7 +104,7 @@
 											</tr>
 										</thead>
 										<tbody>
-											<tr v-for="item in cart">
+											<tr v-for="(item,i) in cart" :key="i">
 												<td>
 													<input id="item-amount" type="number" min="1" step="1" v-model="item.amount"
 														v-on:click="editTotal()" />
@@ -164,12 +164,12 @@
 								<div class="form-group">
 									<select class="form-control form-control-sm" data-live-search="true" v-model="selectedProvince" v-on:click="findCityByProvince()"
 										required>
-										<option v-for="province in provinces" :value="province.province_id"> {{ province.province }} </option>
+										<option v-for="(province, i) in provinces" :key="i" :value="province.province_id"> {{ province.province }} </option>
 									</select>
 								</div>
 								<div class="form-group">
 									<select class="form-control form-control-sm" data-live-search="true" v-model="selectedCity" required>
-										<option v-for="city in cities" :value="city.city_id"> {{ city.city_name }} </option>
+										<option v-for="(city,i) in cities" :key="i" :value="city.city_id"> {{ city.city_name }} </option>
 									</select>
 								</div>
 								<hr>
@@ -185,7 +185,7 @@
 								<b>Jenis Pengiriman :</b>
 								<div class="form-group">
 									<select class="form-control form-control-sm" data-live-search="true" v-model="selectedJenisPengiriman">
-										<option v-for="jenisPengiriman in listJenisPengiriman" :value="jenisPengiriman"> {{ jenisPengiriman.service }} </option>
+										<option v-for="(jenisPengiriman,i) in listJenisPengiriman" :key="i" :value="jenisPengiriman"> {{ jenisPengiriman.service }} </option>
 									</select>
 									</div>
 								<button class="btn btn-outline-primary my-2 my-sm-0 btn-right" v-on:click="buyItem()">Buy</button>
@@ -239,7 +239,7 @@
 
 		<!-- Main -->
 		<div class="flex-container">
-			<div class="flex-items" v-for="item in items">
+			<div class="flex-items" v-for="(item,i) in items" :key="i">
 				<div class="flex-items-desciption">
 					<img v-bind:src="item.image" height="180px" width="100%">
 					<p class="description">

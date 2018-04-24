@@ -74,7 +74,7 @@
                 <div class="">
                   <i class="validate"></i> 
                   <select class="form-control form-control-sm" data-live-search="true" v-model="addThisItem.category">
-                    <option v-for="category in categories" :value="category._id" selected> {{ category.name }} </option>
+                    <option v-for="(category,i) in categories" :value="category._id" :key="i" selected> {{ category.name }} </option>
 									</select>
                 </div>
               </div>
@@ -103,7 +103,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="item,i in items">
+      <tr v-for="(item,i) in items" :key="i">
         <td>{{ i+1 }}</td>
         <td>{{ item.name }}</td>
         <td><img v-bind:src="item.image" height="50px" width="50px"></td>
@@ -186,7 +186,7 @@
                 <div class="">
                   <i class="validate"></i> 
                   <select class="form-control form-control-sm" data-live-search="true" v-model="selectedCategory">
-                    <option v-for="category in categories" :value="category._id" selected> {{ category.name }} </option>
+                    <option v-for="(category,i) in categories" :key="i" :value="category._id" selected> {{ category.name }} </option>
 									</select>
                 </div>
               </div>
