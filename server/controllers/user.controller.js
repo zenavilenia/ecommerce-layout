@@ -29,7 +29,7 @@ module.exports = {
                                     role: user.role
                                 },
                                 process.env.SECRET)
-                            //req.headers.token = token;
+                            req.headers.token = token;
                             console.log("token--", req.headers.token)
                             res.status(200).json({
                                 message: "login success",

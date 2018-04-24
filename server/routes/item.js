@@ -12,8 +12,8 @@ const uploaderMem = multer({
 })
 
 router
-    .get('/', auth, findAll)
-    .get('/by_category/:categoryId', auth, findByCategory)
+    .get('/', findAll)
+    .get('/by_category/:categoryId', findByCategory)
     .post('/', authAdmin, uploaderMem.single('image'),uploadMidleware.upload, addItem)
     .put('/', authAdmin, uploaderMem.single('image'),uploadMidleware.upload, update)
     .delete('/:id', authAdmin, remove)
