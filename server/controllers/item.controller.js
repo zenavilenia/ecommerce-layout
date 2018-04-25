@@ -61,28 +61,51 @@ module.exports = {
         })
     },
     update: (req, res) => {
-        Item.update({
-            _id: req.body.id
-        }, {
-            name: req.body.name,
-            image: req.imageURL,
-            description: req.body.description,
-            price: req.body.price,
-            stock: req.body.stock,
-            weight: req.body.weight,
-            categoryId: req.body.categoryId
+      Item.update({
+        _id: req.body.id
+      }, {
+        name: req.body.name,
+        image: req.imageURL,
+        description: req.body.description,
+        price: req.body.price,
+        stock: req.body.stock,
+        weight: req.body.weight,
+        categoryId: req.body.categoryId || "No Category"
+      })
+        .then(result => {
+          res.status(200).send({
+            message: 'update item success',
+            data: result
+          })
         })
-            .then(result => {
-                res.status(200).send({
-                    message: 'update item success',
-                    data: result
-                })
-            })
-            .catch(err => {
-                res.status(400).send({
-                    message: err.message
-                })
-            })
+        .catch(err => {
+          res.status(400).send({
+            message: err.message
+          })
+        })
+    },
+    updateNoImage: (req, res) => {
+      Item.update({
+        _id: req.body.id
+      }, {
+        name: req.body.name,
+        description: req.body.description,
+        price: req.body.price,
+        stock: req.body.stock,
+        weight: req.body.weight,
+        categoryId: req.body.categoryId || "No Category"
+      })
+        .then(result => {
+          res.status(200).send({
+            message: 'update item success',
+            data: result
+          })
+        })
+        .catch(err => {
+          res.status(400).send({
+            message: err.message
+          })
+        })
     },
     remove: (req, res) => {
         Item.remove({

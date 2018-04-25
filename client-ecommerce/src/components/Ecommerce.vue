@@ -285,7 +285,7 @@ export default {
   },
   methods: {
     register: function () {
-       axios.post('http://localhost:3000/register', {
+       axios.post('http://35.187.252.201/register', {
         email: this.email,
         password: this.password
       })
@@ -300,7 +300,7 @@ export default {
         })
     },
     login: function () {
-      axios.post('http://localhost:3000/login', {
+      axios.post('http://35.187.252.201/login', {
         email: this.emailLogin,
         password: this.passwordLogin
       })
@@ -334,7 +334,7 @@ export default {
       console.log('city: ', this.selectedCity)
       console.log('courier', this.courier)
 
-      axios.post('http://localhost:3000/ongkir/price', {
+      axios.post('http://35.187.252.201/ongkir/price', {
         email: this.emailLogin,
         password: this.passwordLogin
       })
@@ -354,7 +354,7 @@ export default {
         })
     },
     findAllItem: function () {
-      axios.get('http://localhost:3000/item')
+      axios.get('http://35.187.252.201/item')
         .then(response => {
           this.items = response.data.data
           console.log(this.items);
@@ -364,7 +364,7 @@ export default {
         })
     },
     findItemByCategory: function (categoryId) {
-      axios.get(`http://localhost:3000/item/by_category/${categoryId}`)
+      axios.get(`http://35.187.252.201/item/by_category/${categoryId}`)
         .then(response => {
           this.items = response.data.data
           console.log(this.items);
@@ -374,7 +374,7 @@ export default {
         })
     },
     findAllProvince: function () {
-      axios.get(`http://localhost:3000/ongkir/province`)
+      axios.get(`http://35.187.252.201/ongkir/province`)
         .then(response => {
           this.provinces = response.data.data.rajaongkir.results
           console.log('province', this.provinces);
@@ -384,7 +384,7 @@ export default {
         })
     },
     findCityByProvince: function () {
-      axios.get(`http://localhost:3000/ongkir/city/${this.selectedProvince}`)
+      axios.get(`http://35.187.252.201/ongkir/city/${this.selectedProvince}`)
         .then(response => {
           this.cities = response.data.data.rajaongkir.results
           console.log('cities', this.cities);
@@ -439,7 +439,7 @@ export default {
       console.log('selected city: ', parseInt(this.selectedCity))
       console.log('weight total: ', this.weightTotal)
       console.log('courier', this.courier)
-      axios.post('http://localhost:3000/ongkir/price', {
+      axios.post('http://35.187.252.201/ongkir/price', {
         destination: parseInt(this.selectedCity),
         weight: this.weightTotal,
         courier: this.courier
@@ -468,7 +468,7 @@ export default {
         console.log('itemsId-', itemsId)
       })
       
-      axios.post('http://localhost:3000/transaction', {
+      axios.post('http://35.187.252.201/transaction', {
           weight: this.weightTotal,
           province_id: this.selectedProvince,
           city_id: this.selectedCity,

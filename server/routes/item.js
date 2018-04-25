@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const multer = require('multer')
 const uploadMidleware = require('../middleware/upload')
-const {findAll, findByCategory, addItem, update, remove} = require('../controllers/item.controller')
+const {findAll, findByCategory, addItem, update, updateNoImage, remove} = require('../controllers/item.controller')
 const {auth, authAdmin} = require('../middleware/auth')
 
 const uploaderMem = multer({
@@ -16,6 +16,7 @@ router
     .get('/by_category/:categoryId', findByCategory)
     .post('/', authAdmin, uploaderMem.single('image'),uploadMidleware.upload, addItem)
     .put('/', authAdmin, uploaderMem.single('image'),uploadMidleware.upload, update)
+    .put('/noImage', updateNoImage)
     .delete('/:id', authAdmin, remove)
 
 module.exports = router

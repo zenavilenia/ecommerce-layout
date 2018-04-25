@@ -31,7 +31,7 @@ export default {
   methods: {
     login() {
       if (this.email && this.password) {
-        axios.post('http://localhost:3000/login', {
+        axios.post('http://35.187.252.201/login', {
         email: this.email,
         password: this.password
       })

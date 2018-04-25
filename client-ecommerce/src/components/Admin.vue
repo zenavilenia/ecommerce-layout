@@ -140,6 +140,10 @@
               <label class="form-title">Image</label>
               <div class="form-group-content">
                 <div class="">
+                  <br><br>
+                  <div v-if="!fileEdit">
+                    <img :src="selectedItem.image" height="200" width="200" class="image-edit">
+                  </div>
                   <input type="file" class="form-control" id="recipient-name" @change="getPhoto">
                 </div>
               </div>
@@ -232,7 +236,7 @@ export default {
       this.formDataAdd.set('categoryId', this.addThisItem.category)
       axios({
         method: 'post',
-        url: 'http://localhost:3000/item',
+        url: 'http://35.187.252.201/item',
         data: this.formDataAdd,
         headers: {
           token: localStorage.getItem('token')
@@ -252,32 +256,55 @@ export default {
     },
     changeItem: function (item) {
       this.selectedItem = item;
+      console.log(this.selectedItem)
     },
     editItem: function () {
       console.log("edit this item ", this.selectedItem)
       console.log("file--", this.fileEdit)
-      this.formData.set('id', this.selectedItem._id)
-      this.formData.set('image', this.fileEdit)
-      this.formData.set('description', this.selectedItem.description)
-      this.formData.set('name', this.selectedItem.name)
-      this.formData.set('price', this.selectedItem.price)
-      this.formData.set('stock', this.selectedItem.stock)
-      this.formData.set('weight', this.selectedItem.weight)
-      this.formData.set('categoryId', this.selectedItem.categoryId._id)
-      axios({
-        method: 'put',
-        url: 'http://localhost:3000/item',
-        data: this.formData,
-        headers: {
-          token: localStorage.getItem('token')
-        }
-      }).then(({ data }) => {
-        console.log(data)
-        location.reload()
-      })
+      if(this.fileEdit) {
+        this.formData.set('id', this.selectedItem._id)
+        this.formData.set('image', this.fileEdit)
+        this.formData.set('description', this.selectedItem.description)
+        this.formData.set('name', this.selectedItem.name)
+        this.formData.set('price', this.selectedItem.price)
+        this.formData.set('stock', this.selectedItem.stock)
+        this.formData.set('weight', this.selectedItem.weight)
+        this.formData.set('categoryId', this.selectedItem.categoryId._id)
+        axios({
+          method: 'put',
+          url: 'http://35.187.252.201/item',
+          data: this.formData,
+          headers: {
+            token: localStorage.getItem('token')
+          }
+        }).then(({ data }) => {
+          console.log(data)
+          location.reload()
+        })
+      } else {
+        // no photo
+        console.log('masuk no image')
+        axios.put('http://35.187.252.201/item/noImage', {
+          id: this.selectedItem._id,
+          name: this.selectedItem.name,
+          description: this.selectedItem.description,
+          price: this.selectedItem.price,
+          stock: this.selectedItem.stock,
+          weight: this.selectedItem.weight,
+          categoryId: this.selectedItem.categoryId._id
+        }, {
+          headers: {
+            token: localStorage.getItem('token')
+          }
+        })
+          .then(({ data }) => {
+            console.log(data)
+            location.reload()
+          })
+      }
     },
     deleteItem: function (id) {
-      axios.delete(`http://localhost:3000/item/${id}`, {
+      axios.delete(`http://35.187.252.201/item/${id}`, {
         headers: {
           token: localStorage.getItem('token'),
         },
@@ -296,7 +323,8 @@ export default {
     }
   },
   created: function () {
-    axios.get('http://localhost:3000/item', {
+    console.log('masuk sini')
+    axios.get('http://35.187.252.201/item', {
       headers: {
         token: localStorage.getItem('token')
       }
@@ -309,7 +337,7 @@ export default {
         console.log(err)
       })
     
-    axios.get('http://localhost:3000/category', {
+    axios.get('http://35.187.252.201/category', {
       headers: {
         token: localStorage.getItem('token')
       }
@@ -342,6 +370,10 @@ export default {
 }
 
 .form-title {
+  float: left;
+}
+
+.image-edit {
   float: left;
 }
 </style>
